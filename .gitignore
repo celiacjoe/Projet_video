@@ -1,0 +1,47 @@
+BowlingFx/Library/
+BowlingFx/Temp/
+BowlingFx/Build/
+
+# =============== #
+# Unity generated #
+# =============== #
+BowlingFx/[Tt]emp/
+BowlingFx/[Oo]bj/
+BowlingFx/[Bb]uild
+BowlingFx/[Ll]ibrary/
+BowlingFx/sysinfo.txt
+BowlingFx/*.stackdump
+ 
+# ============================================= #
+# Visual Studio / MonoDevelop / Rider generated #
+# ============================================= #
+BowlingFx/[Ee]xported[Oo]bj/
+BowlingFx/.vs/
+BowlingFx/*.userprefs
+BowlingFx/*.csproj
+BowlingFx/*.pidb
+BowlingFx/*.suo
+BowlingFx/*.sln*
+BowlingFx/*.user
+BowlingFx/*.unityproj
+BowlingFx/*.booproj
+BowlingFx/.idea*/
+ 
+# ============ #
+# OS generated #
+# ============ #
+BowlingFx/.DS_Store*
+BowlingFx/._*
+BowlingFx/.Spotlight-V100
+BowlingFx/.Trashes
+BowlingFx/ehthumbs.db
+BowlingFx/[Tt]humbs.db
+BowlingFx/[Dd]esktop.ini
+
+# ================ #
+# Project Specific #
+# ================ #
+*.zip
+BowlingFx/Binaries/
+BowlingFx/popcorn.htm
+Builds/

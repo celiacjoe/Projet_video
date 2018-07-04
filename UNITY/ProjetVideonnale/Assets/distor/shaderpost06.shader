@@ -1,7 +1,7 @@
 
 Shader "post06" {
     Properties {
-       
+        _vec ("_vec",Vector) = (0,0,0)
     }
     SubShader {
         Tags {
@@ -28,7 +28,7 @@ Shader "post06" {
             #pragma multi_compile_fwdbase
             #pragma only_renderers d3d9 d3d11 glcore gles 
             #pragma target 3.0
-			
+			uniform float3 _vec;
             float rand (float2 uv){return frac(sin(dot(floor(uv),float2(75.325,16.326)))*4598.326+_Time*10.);}
             struct VertexInput {
                 float4 vertex : POSITION;

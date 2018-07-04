@@ -6,7 +6,8 @@ using System.Collections;
 public class ApplyShader1 : MonoBehaviour
 {
     public Material material;
-    public Material material2;
+    //public Material material2;
+    public Camera cam;
     public RenderTexture texture;
     private RenderTexture buffer;
 
@@ -23,7 +24,7 @@ public class ApplyShader1 : MonoBehaviour
     public void UpdateTexture()
     {
         Graphics.Blit(texture, buffer, material);
-        Graphics.Blit(buffer, texture,material2);
+        Graphics.Blit(buffer, texture,material);
     }
 
     // Updates regularly

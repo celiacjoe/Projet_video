@@ -54,10 +54,10 @@ Shader "post02" {
             float4 frag(VertexOutput i) : COLOR {
 
 				float3 b = tex2D(_buff,i.uv0).xyz;
-				float3 t =lerp(float3(0.,0.,0.), tex2D(_Tex,i.uv0+float2(b.x,b.y)).xzy,_s2);
+				float3 t =lerp(float3(0.,0.,0.), tex2D(_Tex,i.uv0+lerp(float2(0.,0.),float2(b.x,b.y),_s1)).xzy,_s2);
                 float3 e = tex2D(_MainTex,i.uv0+lerp(float2(0.,0.),float2(b.x,b.y),_s1)).xyz;				
-
-                return fixed4(e-t,1);
+				//return fixed4(1.3*lerp(b,e,0.25),1.);
+                return fixed4(e,1);
             }
             ENDCG
         }

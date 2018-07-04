@@ -6,6 +6,7 @@ Shader "distort" {
 		_s2 ("slide02", Range(0, 1)) = 0
 		_s3 ("slide03", Range(0, 1)) = 0
 		_s4 ("slide04", Range(0, 1)) = 0
+		_vec ("_vec",Vector) = (0,0,0)
     }
     SubShader {
         Tags {
@@ -13,14 +14,13 @@ Shader "distort" {
             "Queue"="Overlay+1"
             "RenderType"="Overlay"
         }
-		GrabPass{ }
         Pass {
             Name "FORWARD"
             Tags {
                 "LightMode"="ForwardBase"
             }
-            Cull Off
             ZTest Always
+            ZWrite Off
             
             CGPROGRAM
             #pragma vertex vert
@@ -37,6 +37,7 @@ Shader "distort" {
 			uniform float _s2;
 			uniform float _s3;
 			uniform float _s4;
+			uniform float3 _vec;
             uniform sampler2D _MainTex; uniform float4 _MainTex_ST;
             struct VertexInput {
                 float4 vertex : POSITION;
@@ -97,8 +98,9 @@ float warp (float2 uv ,float amp){
 	return acc / div;
 }	 
             float4 frag(VertexOutput i) : COLOR {
+				
 				float2 uv = i.uv0;
-				float2 uv1 =i.uv0 ;
+				float2 uv1 =i.uv0+float2(lerp(-_vec.x,_vec.x,step(0,_vec.z)),_vec.y);
 				uv1.x*=_ScreenParams.r/_ScreenParams.g;
 				float p1 = sin(noise(uv1*40.*_s3)*100.*_s2);
 				float p2 = sin(noise((uv1+12.)*40.*_s3)*100.*_s2);
@@ -108,10 +110,11 @@ float warp (float2 uv ,float amp){
 				float4 visu = float4(t,t,t,1.);
 				float4 visu2 = float4(Bokeh(_MainTex, uv,t*4.), 1.0); 
 				float4 final = lerp(img,visu2,_s4);
+				//float4 test = float4(_vec,1.);
                 return final;
             }
             ENDCG
         }
     }
-    CustomEditor "ShaderForgeMaterialInspector"
+    
 }

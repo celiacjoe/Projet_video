@@ -692,10 +692,9 @@ GameObject:
   - component: {fileID: 1856994142}
   - component: {fileID: 1856994141}
   - component: {fileID: 1856994144}
+  - component: {fileID: 1856994148}
   - component: {fileID: 1856994146}
   - component: {fileID: 1856994145}
-  - component: {fileID: 1856994148}
-  - component: {fileID: 1856994149}
   m_Layer: 0
   m_Name: FirstPersonCharacter
   m_TagString: MainCamera
@@ -787,28 +786,27 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1856994139}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 93533561e190d634ea68d0eaf3060d8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  effect: {fileID: 2100000, guid: ecd701f117e694245b1769df26383953, type: 2}
+  effect: {fileID: 2100000, guid: 7ed2b103f8b28104dbbeb05ea70c84ef, type: 2}
 --- !u!114 &1856994146
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1856994139}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be19a47b26b01ef49b299acc9a87c074, type: 3}
+  m_Script: {fileID: 11500000, guid: e15fb234d3be3e340aaba623254fac50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  material: {fileID: 2100000, guid: 740faeaca7376d24a839c170429545b8, type: 2}
-  cam: {fileID: 0}
-  texture: {fileID: 8400000, guid: eb79d014d75c55b419512cee1d2b5552, type: 2}
-  initialTexture: {fileID: 2800000, guid: 7c6b347120c540f419e6cb79e40e7a5b, type: 3}
-  updateInterval: 0.1
+  material: {fileID: 2100000, guid: 542a44fde848e5f439b5f6896b63f895, type: 2}
+  texture: {fileID: 8400000, guid: 9fd67dd68f3252c4ca44f039cec6c93a, type: 2}
+  initialTexture: {fileID: 2800000, guid: bf4db5cca20687f4082e7b5a3b87c0ac, type: 3}
+  updateInterval: 0.01
 --- !u!114 &1856994148
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -820,20 +818,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d2de5ac2cd5c2748815d32ed19ab60f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mat: {fileID: 2100000, guid: 7ed2b103f8b28104dbbeb05ea70c84ef, type: 2}
+  mat: {fileID: 2100000, guid: 542a44fde848e5f439b5f6896b63f895, type: 2}
+  mat2: {fileID: 2100000, guid: e5ba8052a1007484e91206059be4167d, type: 2}
+  mat3: {fileID: 2100000, guid: 7ed2b103f8b28104dbbeb05ea70c84ef, type: 2}
   cam: {fileID: 1856994143}
---- !u!114 &1856994149
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1856994139}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 93533561e190d634ea68d0eaf3060d8c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  effect: {fileID: 2100000, guid: 7ed2b103f8b28104dbbeb05ea70c84ef, type: 2}
 --- !u!1 &2070509558
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,7 +1,9 @@
 
 Shader "post07" {
     Properties {
-        _vec ("_vec",Vector) = (0,0,0)
+	_MainTex ("MainTex", 2D) = "white" {}
+		_buff ("buff", 2D) = "white" {}
+        _float ("_float",vector) = (0,0,0)
     }
     SubShader {
         Tags {
@@ -28,8 +30,9 @@ Shader "post07" {
             #pragma multi_compile_fwdbase
             #pragma only_renderers d3d9 d3d11 glcore gles 
             #pragma target 3.0
-			uniform float3 _vec;
-            float rand (float2 uv){return frac(sin(dot(floor(uv),float2(75.325,16.326)))*4598.326+_Time*10.);}
+			uniform float3 _float;
+             uniform sampler2D _MainTex; uniform float4 _MainTex_ST;
+			uniform sampler2D _buff;
             struct VertexInput {
                 float4 vertex : POSITION;
                 float2 texcoord0 : TEXCOORD0;
@@ -55,9 +58,24 @@ Shader "post07" {
 
 				float2 uv =(-1.+2.* i.uv)*0.5;
 				uv.x*=_ScreenParams.r/_ScreenParams.g;
-				float2 po = float2(_vec.x,_vec.y)*float2(_ScreenParams.r/_ScreenParams.g,1.);
+				float2 po = float2(_float.x,_float.y)*float2(_ScreenParams.r/_ScreenParams.g,1.);
 				float pt = smoothstep (0.1,0.05,distance(uv,po*-0.5));
-                return fixed4(pt,pt,pt,1);
+                float3 diff = float3(float2(1.,1.)/_ScreenParams,0.);   
+    float4 center =tex2D(_buff,uv);
+    float top =tex2D(_buff,uv-diff.zy).x;
+    float left =tex2D(_buff,uv-diff.xz).x;
+    float right =tex2D(_buff,uv+diff.xz).x;
+    float bottom =tex2D(_buff,uv+diff.zy).x;
+    
+    float red = -(center.y-0.5)*2.+(top+left+right+bottom-2.);
+    red += pt;
+    red *= 0.98;
+    red *= step(0.1,_Time.x);
+    red = 0.5 +red*0.5;
+    red = clamp(red,0.,1.);
+    return float4(red,center.x,0.,0.);
+
+    
             }
             ENDCG
         }

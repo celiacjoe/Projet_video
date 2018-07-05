@@ -1,4 +1,4 @@
-﻿
+﻿// AlanZucconi.com: http://www.alanzucconi.com/?p=4539
 using UnityEngine;
 using System.Collections;
  
@@ -6,27 +6,23 @@ using System.Collections;
 public class ApplyShader : MonoBehaviour
 {
     public Material material;
-    public Material mat;
     public RenderTexture texture;
     private RenderTexture buffer;
-    public Camera source;
-    private Texture initialTexture; // first texture
-    private RenderTexture renderTexture;
-    private Texture2D sourceRender, destinationRender;
+
+    public Texture initialTexture; // first texture
+
     void Start ()
     {
-        
-        //Graphics.Blit(sourceRender, texture);
+        Graphics.Blit(initialTexture, texture);
 
         buffer = new RenderTexture(texture.width, texture.height, texture.depth, texture.format);
-        mat.SetTexture("_buff", texture);
     }
     
     // Postprocess the image
     public void UpdateTexture()
     {
         Graphics.Blit(texture, buffer, material);
-        Graphics.Blit(buffer, texture, material);
+        Graphics.Blit(buffer, texture);
     }
 
     // Updates regularly
@@ -38,15 +34,6 @@ public class ApplyShader : MonoBehaviour
         {
             UpdateTexture();
             lastUpdateTime = Time.time;
-
         }
-        RenderTexture active = RenderTexture.active;
-        RenderTexture.active = renderTexture;
-
-        RenderTexture target = source.targetTexture;
-        source.targetTexture = renderTexture;
-        source.Render();
-        sourceRender.ReadPixels(new Rect(0.0f, 0.0f, Screen.width, Screen.height), 0, 0);
-        source.targetTexture = target;
     }
 }

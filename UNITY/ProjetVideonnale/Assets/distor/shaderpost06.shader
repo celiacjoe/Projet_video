@@ -109,7 +109,7 @@ float pattern(float2 st, float2 v, float t) {
 }
             float4 frag(VertexOutput i) : COLOR {
 				float sa = pow(_s2,3.);
-				float2 uv = (-1.+2.*i.uv)*0.5;
+				float2 uv = (-1.+2.*i.uv)*2.;
 				uv.x*=_ScreenParams.r/_ScreenParams.g;
 				//float2 po = _vec.xy*float2(_ScreenParams.r/_ScreenParams.g,1.);
 				//float pd = smoothstep (0.7,0.05,distance(uv,po*-0.5));

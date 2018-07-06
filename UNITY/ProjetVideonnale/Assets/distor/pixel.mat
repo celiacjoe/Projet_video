@@ -75,6 +75,7 @@ Material:
     - _SrcBlend: 1
     - _UVSec: 0
     - _ZWrite: 1
+<<<<<<< HEAD
     - _s1: 1
     - _s2: 1
     - _s3: 1
@@ -83,3 +84,13 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _vec: {r: 0.6231631, g: -0.2865871, b: -0.72769207, a: 0}
+=======
+    - _s1: 0
+    - _s2: 0
+    - _s3: 0
+    - _s4: 0
+    m_Colors:
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _vec: {r: 0, g: 0, b: 1, a: 0}
+>>>>>>> 290e948350a7a7a31afb28c37ba12ff7e58c8498

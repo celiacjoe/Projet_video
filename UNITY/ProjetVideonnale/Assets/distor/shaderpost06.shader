@@ -34,7 +34,7 @@ Shader "post06" {
             #pragma multi_compile_fwdbase
             #pragma only_renderers d3d9 d3d11 glcore gles 
             #pragma target 3.0
-			uniform sampler2D _buff;
+			uniform sampler2D _buff; uniform float4 _buff_ST;
 			uniform sampler2D _MainTex; uniform float4 _MainTex_ST;
 			uniform float _s1;
 			uniform float _s2;
@@ -45,16 +45,18 @@ Shader "post06" {
 			float rands (float f){return frac(sin(dot(f,12.321))*4523.032);}
             struct VertexInput {
                 float4 vertex : POSITION;
-                float2 texcoord0 : TEXCOORD0;
+                //float2 texcoord0 : TEXCOORD0;
             };
             struct VertexOutput {
                 float4 pos : SV_POSITION;
-                float2 uv : TEXCOORD0;
+				float4 projPos : TEXCOORD0;
             };
             VertexOutput vert (VertexInput v) {
                 VertexOutput o = (VertexOutput)0;
-                o.uv = v.texcoord0;
+                //o.uv = v.texcoord0;
                 o.pos = UnityObjectToClipPos( v.vertex );
+				o.projPos = ComputeScreenPos(o.pos);
+				COMPUTE_EYEDEPTH(o.projPos.z);
                 return o;
             }
 			float2 hash( float2 p )
@@ -77,13 +79,13 @@ float noise( in float2 p )
     return 0.5+0.5*dot( n, float3(70.,70.,70.) );	
 }
 			
-float DE( float2 pp, out bool blood, float t ){
+float DE( float2 pp, out bool blood ){
 	pp.y += (
 		.8 * sin(.5*2.3*pp.x+pp.y) +
 		.5 * sin(.5*5.5*pp.x+pp.y) +
 		0.18*sin(.5*13.7*pp.x)+
 		0.08*sin(.5*23.*pp.x));		
-	pp += float2(0.,0.4)*_s3*25.;	
+	pp += float2(0.,0.4)*_s3*30.;	
 	float thresh =5.5;	
 	blood = pp.y > thresh;	
 	float d = abs(pp.y - thresh);
@@ -91,7 +93,7 @@ float DE( float2 pp, out bool blood, float t ){
 }
 float3 sceneColour( in float2 pp ){	
 	bool blood;
-	float d = DE( pp, blood,/* frac(_Time*10.)*16.*/_Time*50. );	
+	float d = DE( pp, blood );	
 	if( !blood ){
 			return float3 (0.,0.,0.);}
 	else{
@@ -108,12 +110,25 @@ float pattern(float2 st, float2 v, float t) {
     return step(t, rand(100.+p*.000001)+rand(p.x)*0.5 );
 }
             float4 frag(VertexOutput i) : COLOR {
+
+				float2 u = (i.projPos.xy );
+#if UNITY_SINGLE_PASS_STEREO
+
+				// If Single-Pass Stereo mode is active, transform the
+
+				// coordinates to get the correct output UV for the current eye.
+
+				float4 scaleOffset = unity_StereoScaleOffset[unity_StereoEyeIndex];
+
+				u = ((u - scaleOffset.zw) / scaleOffset.xy);
+
+#endif
 				float sa = pow(_s2,3.);
-				float2 uv = (-1.+2.*i.uv)*2.;
-				uv.x*=_ScreenParams.r/_ScreenParams.g;
-				//float2 po = _vec.xy*float2(_ScreenParams.r/_ScreenParams.g,1.);
+				float2 uv =(-1+2.* u)*2;
+				//uv.x*=_ScreenParams.r/_ScreenParams.g;
+				//float2 po = _vec.xy;
 				//float pd = smoothstep (0.7,0.05,distance(uv,po*-0.5));
-				float3 pt = lerp(-1,1.,tex2D(_buff,i.uv))*2.*_s4;
+				float3 pt = lerp(-1,1.,tex2D(_buff, UnityStereoScreenSpaceUVAdjust(u, _buff_ST)))*2.*_s4;
 				//float3 pt = lerp(pt1,float3(0.,0.,0.),pd);
 				float2 t = sceneColour(uv*3).xy;
 				float2 uv2 = (uv+t*0.1+pt.xy*0.02)*50.*lerp(5.,1.,sa);
@@ -124,13 +139,13 @@ float pattern(float2 st, float2 v, float t) {
 				float d2 = smoothstep(0.25,0.02,distance(e,float2(0.666,b)));
 				float d3 = smoothstep(0.25,0.02,clamp(distance(e,float2(1,b))*distance(e,float2(0,b)),0.,1.));  
 				float3 pix = float3(d1,d2,d3);
-				float3 img = tex2D(_MainTex,i.uv).xyz;
+				float3 img = tex2D(_MainTex, UnityStereoScreenSpaceUVAdjust(u, _MainTex_ST)).xyz;
 				float f = 0.;
 			  float2 s=_ScreenParams;
 			  float2 c=_ScreenParams;
-			  float2 uva = i.uv*_ScreenParams*0.5;
+			  float2 uva = u*_ScreenParams*0.5+float2(-2.,-2.)*100.;
 			for(float j=1.,i=j;i++<7.;){
-			if(cos((j*=dot(step(c=(0.3+cos(float2(j*17.,j*71.+1.6))*.3)*s,uva),float2(2,1+sin(_Time.x*50.))))*6.-2.+_Time.x*500.)>=i/50.-.8)
+			if(cos((j*=dot(step(c=(0.3+cos(float2(j*17.,j*71.+1.6))*.3)*s,uva*2.),float2(2,1+sin(_Time.x*50.))))*6.-2.+_Time.x*500.)>=i/50.-.8)
             s=c+(s-c-c)*step(c,uva), uva=abs(uva-c);}
 			uva=abs(uva+uva-s)-s+1.5;
 				float bpo = rands(_Time*10.)*2.-1.;
@@ -151,7 +166,7 @@ float pattern(float2 st, float2 v, float t) {
 				float3 trans =  saturate(( ap4 > 0.5 ? (1.0-(1.0-2.0*(ap4-float3(0.5,0.5,0.5)))*(float3(1.,1.,1.)-pix)) : (2.0*ap4*pix) ));
 				float3 b1 =lerp(img, lerp(lerp(float3(0.,1.,0.),img,bt),float3(1.,0.2,1.),clamp(f,0.,1.)),step(0.5,_s1));
 				float3 col = lerp(trans,b1,ap3);
-                return fixed4(col,1.);
+				return fixed4(col, 1.);
             }
             ENDCG
         }

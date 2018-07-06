@@ -40,7 +40,7 @@ Shader "point"
 			float2 uv2 =(-1.+2.* i.uv)*0.5;
 				uv2.x*=_ScreenParams.r/_ScreenParams.g;
 				float2 po = _vec.xy*float2(_ScreenParams.r/_ScreenParams.g,1.);
-				float pt = smoothstep (0.1,0.05,distance(uv2,po*-0.5));
+				float pt = smoothstep (0.05,0.005,distance(uv2,po*-0.5));
 				fixed2 uv = i.uv ;
 				float2 s = float2(1.,1.) /_ScreenParams;
 				float left = tex2D(_MainTex, uv + fixed2(s.x, 0)).x;	
@@ -51,7 +51,7 @@ Shader "point"
 
 				float red = -(center.y-0.5)*2.+(top+left+right+bottom-2.);
     red +=pt;
-    red *= 0.995;
+    red *= 0.98;
     red *= step(0.1,_Time.x);
     red = 0.5 +red*0.5;
     red = clamp(red,0.,1.);	

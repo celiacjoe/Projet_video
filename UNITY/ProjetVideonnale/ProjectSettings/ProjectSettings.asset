@@ -4,7 +4,7 @@
 PlayerSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 15
-  productGUID: 72fb67fc6b1cc604fbbadfb3d5183195
+  productGUID: 8d4c2e744fb5f294e8549846360f08b0
   AndroidProfiler: 0
   AndroidFilterTouchesWhenObscured: 0
   AndroidEnableSustainedPerformanceMode: 0
@@ -708,7 +708,7 @@ PlayerSettings:
   facebookSdkVersion: 7.9.4
   apiCompatibilityLevel: 2
   cloudProjectId: 667f11dd-4e1a-4062-9fd7-d660415ff06a
-  projectName: 
+  projectName: ProjetVideonnale
   organizationId: cbetourne
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0

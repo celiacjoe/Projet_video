@@ -426,11 +426,11 @@
      <None Include="Assets\PostProcessing\Editor Resources\Monitors\WaveformCompute.compute" />
      <None Include="Assets\Beautify\Resources\Shaders\BeautifyBasic.cginc" />
      <None Include="Assets\SteamVR\InteractionSystem\Readme_InteractionSystem.txt" />
- <Reference Include="Unity.PackageManagerUI.Editor">
- <HintPath>C:/PROJET/RealVirtuality/Projet_video/UNITY/ProjetVideonnale/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
- </Reference>
  <Reference Include="UnityEditor.StandardEvents">
  <HintPath>C:/PROJET/RealVirtuality/Projet_video/UNITY/ProjetVideonnale/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
+ </Reference>
+ <Reference Include="Unity.PackageManagerUI.Editor">
+ <HintPath>C:/PROJET/RealVirtuality/Projet_video/UNITY/ProjetVideonnale/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.AIModule">
  <HintPath>P:/Unity/2018.1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>

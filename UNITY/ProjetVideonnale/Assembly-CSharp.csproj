@@ -407,6 +407,7 @@
      <None Include="Assets\Beautify\Resources\Shaders\BeautifySF.cginc" />
      <None Include="Assets\PostProcessing\Resources\Shaders\ScreenSpaceRaytrace.cginc" />
      <None Include="Assets\Beautify\Demos\DemoSources\Skybox\README_SKYBOX.txt" />
+     <None Include="Assets\New Text Document (2).txt" />
      <None Include="Assets\Beautify\Resources\Shaders\BeautifyMobile.cginc" />
      <None Include="Assets\PostProcessing\Resources\Shaders\Bloom.shader" />
      <None Include="Assets\SteamVR\Resources\SteamVR_SphericalProjection.shader" />
